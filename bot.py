@@ -1,12 +1,15 @@
 import sched
 import requests
 
+token = "5665995939:AAFP4Ralnwt27upHfbdRAb6"
+
 scheduler = sched.scheduler()
 
 # mostra o id do último grupo adicionado
 def last_chat_id(token):
     try:
-        url = "https://api.telegram.org/bot{teste}/getUpdates".format(token)
+        url = "https://api.telegram.org/bot{5665995939:AAFP4Ralnwt27upHfbdRAb6}/getUpdates".format(token)
+        print(url)
         response = requests.get(url)
         if response.status_code == 200:
             json_msg = response.json()
@@ -20,24 +23,29 @@ def last_chat_id(token):
     except Exception as e:
         print("Erro no getUpdates:", e)
 
+
 def printa():
     print("Estou rodando")
-    URL = "http://localhost:8080"
+    URL = "http://localhost:5154/WeatherForecast"
     location = "Computador de teste da SIM"
     PARAMS = {'address':location} 
     r = requests.get(url = URL, params = PARAMS) 
     print(r)
     scheduler.enter(delay=5, priority=0, action=printa)
 
-printa()
+last_chat_id(token)
+
 
 def send_message(token, chat_id, message):
     try:
         data = {"chat_id": chat_id, "text": message}
-        url = "https://api.telegram.org/bot{teste}/sendMessage".format(token)
+        url = "https://api.telegram.org/bot{token}/sendMessage".format(token)
         requests.post(url, data)
     except Exception as e:
         print("Erro no sendMessage:", e)
 
-scheduler.run(blocking=True)
+printa()
+last_chat_id(token)
 
+
+scheduler.run(blocking=True)
